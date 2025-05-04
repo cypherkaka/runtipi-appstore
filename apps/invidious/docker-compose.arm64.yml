@@ -95,3 +95,8 @@ services:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
     networks:
       - tipi_main_network
+
+networks:
+  tipi_main_network:
+    name: runtipi_tipi_main_network
+    external: true
