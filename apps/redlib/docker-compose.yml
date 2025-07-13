@@ -3,7 +3,7 @@ services:
     image: traefik/redlib:v1.11.0
     container_name: redlib
     ports:
-      - ${APP_PORT}:8080
+      - 127.0.0.1:${APP_PORT}:8080
     networks:
       - tipi_main_network
     labels:
