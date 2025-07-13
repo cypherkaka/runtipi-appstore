@@ -1,0 +1,34 @@
+services:
+  redlib:
+    image: traefik/redlib:v1.11.0
+    container_name: redlib
+    ports:
+      - ${APP_PORT}:80
+    networks:
+      - tipi_main_network
+    labels:
+      # Main
+      traefik.enable: true
+      traefik.http.middlewares.redlib-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.redlib.loadbalancer.server.port: 80
+      # Web
+      traefik.http.routers.redlib-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.redlib-insecure.entrypoints: web
+      traefik.http.routers.redlib-insecure.service: redlib
+      traefik.http.routers.redlib-insecure.middlewares: redlib-web-redirect
+      # Websecure
+      traefik.http.routers.redlib.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.redlib.entrypoints: websecure
+      traefik.http.routers.redlib.service: redlib
+      traefik.http.routers.redlib.tls.certresolver: myresolver
+      # Local domain
+      traefik.http.routers.redlib-local-insecure.rule: Host(`redlib.${LOCAL_DOMAIN}`)
+      traefik.http.routers.redlib-local-insecure.entrypoints: web
+      traefik.http.routers.redlib-local-insecure.service: redlib
+      traefik.http.routers.redlib-local-insecure.middlewares: redlib-web-redirect
+      # Local domain secure
+      traefik.http.routers.redlib-local.rule: Host(`redlib.${LOCAL_DOMAIN}`)
+      traefik.http.routers.redlib-local.entrypoints: websecure
+      traefik.http.routers.redlib-local.service: redlib
+      traefik.http.routers.redlib-local.tls: true
+      runtipi.managed: true

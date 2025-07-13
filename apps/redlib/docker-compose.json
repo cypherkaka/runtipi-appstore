@@ -1,0 +1,10 @@
+{
+  "services": [
+    {
+      "name": "redlib",
+      "image": "traefik/redlib:v1.11.0",
+      "isMain": true,
+      "internalPort": "80"
+    }
+  ]
+}
