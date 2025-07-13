@@ -4,7 +4,7 @@
   "available": true,
   "short_desc": "An alternative private front-end to Reddit",
   "author": "traefik",
-  "port": 8382,
+  "port": 38001,
   "categories": ["utilities"],
   "description": "An alternative private front-end to Reddit",
   "tipi_version": 1,
